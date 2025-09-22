@@ -9,7 +9,6 @@ const WhoAmI = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const leftContentRef = useRef<HTMLDivElement>(null);
   const rightContentRef = useRef<HTMLDivElement>(null);
-  const floatingElementsRef = useRef<HTMLDivElement[]>([]);
   const textElementsRef = useRef<HTMLParagraphElement[]>([]);
   const titleRef = useRef<HTMLHeadingElement>(null);
 
@@ -73,19 +72,6 @@ const WhoAmI = () => {
       );
     });
 
-    // Floating elements - slower and smoother
-    tl.fromTo(floatingElementsRef.current, 
-      { opacity: 0, scale: 0.7, rotation: 120 },
-      { 
-        opacity: 1, 
-        scale: 1, 
-        rotation: 0, 
-        duration: 1.0, 
-        stagger: 0.2, 
-        ease: 'power3.out' 
-      },
-      '-=0.4'
-    );
 
 
     return () => {
@@ -96,32 +82,6 @@ const WhoAmI = () => {
 
   return (
     <div ref={sectionRef} id="about" className="min-h-screen flex flex-col md:flex-row items-center justify-center gap-8 md:gap-10 py-8 md:py-16 px-4 sm:px-6 md:px-8 bg-black relative overflow-hidden">
-    {/* Subtle Background Animations */}
-    <div className="absolute inset-0 pointer-events-none">
-      {/* Floating Data Points */}
-      <div 
-        ref={el => { if (el) floatingElementsRef.current[0] = el; }}
-        className="absolute top-1/4 left-1/6 w-2 h-2 bg-jarvis-accent/20 rounded-full"
-      ></div>
-      <div 
-        ref={el => { if (el) floatingElementsRef.current[1] = el; }}
-        className="absolute top-3/4 right-1/4 w-1 h-1 bg-jarvis-accent/15 rounded-full"
-      ></div>
-      <div 
-        ref={el => { if (el) floatingElementsRef.current[2] = el; }}
-        className="absolute top-1/2 left-3/4 w-1.5 h-1.5 bg-jarvis-accent/25 rounded-full"
-      ></div>
-      
-      {/* Subtle Grid Lines */}
-      <svg className="absolute inset-0 w-full h-full opacity-5">
-        <defs>
-          <pattern id="aboutGrid" width="100" height="100" patternUnits="userSpaceOnUse">
-            <path d="M 100 0 L 0 0 0 100" fill="none" stroke="#9CE5E7" strokeWidth="0.5" opacity="0.3"/>
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#aboutGrid)" />
-      </svg>
-    </div>
     <div ref={rightContentRef} className="w-full md:w-[45%] h-96 md:h-[40rem] mb-6 md:mb-0 flex items-center justify-center relative">
       <JarvisHologram />
     </div>

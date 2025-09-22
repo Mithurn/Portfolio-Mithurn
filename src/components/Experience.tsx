@@ -23,7 +23,6 @@ const Experience: React.FC<ExperienceProps> = ({ workHistory }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const experienceCardsRef = useRef<HTMLDivElement[]>([]);
-  const floatingElementsRef = useRef<HTMLDivElement[]>([]);
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -58,32 +57,6 @@ const Experience: React.FC<ExperienceProps> = ({ workHistory }) => {
 
   return (
     <div ref={sectionRef} id="history" className="min-h-screen flex flex-col items-center py-8 px-4 sm:px-6 md:px-8 bg-black relative overflow-hidden">
-    {/* Subtle Background Animations */}
-    <div className="absolute inset-0 pointer-events-none">
-      {/* Timeline Dots */}
-      <div 
-        ref={el => { if (el) floatingElementsRef.current[0] = el; }}
-        className="absolute top-1/4 left-1/5 w-2 h-2 bg-jarvis-accent/25 rounded-full"
-      ></div>
-      <div 
-        ref={el => { if (el) floatingElementsRef.current[1] = el; }}
-        className="absolute top-1/2 left-2/3 w-1.5 h-1.5 bg-jarvis-accent/20 rounded-full"
-      ></div>
-      <div 
-        ref={el => { if (el) floatingElementsRef.current[2] = el; }}
-        className="absolute bottom-1/4 right-1/4 w-1 h-1 bg-jarvis-accent/15 rounded-full"
-      ></div>
-      
-      {/* Connection Lines */}
-      <svg className="absolute inset-0 w-full h-full opacity-10">
-        <line x1="20%" y1="25%" x2="65%" y2="50%" stroke="#9CE5E7" strokeWidth="0.5" opacity="0.3">
-          <animate attributeName="opacity" values="0.3;0.1;0.3" dur="4s" repeatCount="indefinite"/>
-        </line>
-        <line x1="65%" y1="50%" x2="75%" y2="75%" stroke="#9CE5E7" strokeWidth="0.5" opacity="0.2">
-          <animate attributeName="opacity" values="0.2;0.05;0.2" dur="5s" repeatCount="indefinite"/>
-        </line>
-      </svg>
-    </div>
     <h1 ref={titleRef} className="font-orbitron text-jarvis-accent text-shadow-neon text-xl sm:text-2xl md:text-3xl font-bold text-center mb-6">
       History
     </h1>
