@@ -12,6 +12,7 @@ import { SiJavascript, SiTypescript, SiNextdotjs, SiTailwindcss, SiNodedotjs, Si
 import PlatformIOIcon from '../components/PlatformIOIcon';
 import VSCodeIcon from '../components/VSCodeIcon';
 import React, { useRef, useEffect, useState } from 'react';
+import { gsap } from 'gsap';
 import SectionFadeIn from '../components/SectionFadeIn';
 
 /** Add this to the top of the file or in your global CSS for flicker/scanline effect */
@@ -25,6 +26,7 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState('about');
   const copyrightRef = useRef(null);
   const [footerVisible, setFooterVisible] = useState(false);
+  const navItemsRef = useRef<HTMLDivElement[]>([]);
 
   // Enhanced scroll-based navigation detection
   useEffect(() => {
@@ -67,6 +69,43 @@ export default function Home() {
     );
     observer.observe(copyrightRef.current);
     return () => observer.disconnect();
+  }, []);
+
+  // Magnetic cursor effect for navigation items
+  useEffect(() => {
+    navItemsRef.current.forEach(item => {
+      if (!item) return;
+
+      const handleMouseMove = (e: MouseEvent) => {
+        const rect = item.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        
+        gsap.to(item, {
+          x: x * 0.3,
+          y: y * 0.3,
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+      };
+
+      const handleMouseLeave = () => {
+        gsap.to(item, {
+          x: 0,
+          y: 0,
+          duration: 0.5,
+          ease: 'elastic.out(1, 0.3)'
+        });
+      };
+
+      item.addEventListener('mousemove', handleMouseMove);
+      item.addEventListener('mouseleave', handleMouseLeave);
+
+      return () => {
+        item.removeEventListener('mousemove', handleMouseMove);
+        item.removeEventListener('mouseleave', handleMouseLeave);
+      };
+    });
   }, []);
 
   const skills = {
@@ -141,7 +180,7 @@ export default function Home() {
   const projects = [
     {
       name: 'RAKT-RADAR',
-      description: 'AI-powered system to revolutionize blood management by predicting expiries and enabling smart redistribution across hospitals.',
+      description: 'No hospital should ever run dry. RAKT-RADAR is an AI-powered platform that predicts blood expiries and smartly redistributes supplies across hospitals, slashing waste and saving lives.',
       technologies: ['Python', 'Next.js', 'Node.js', 'FastAPI', 'PostgreSQL'],
       image: '/images/rakt-radar.png',
       link: 'https://www.youtube.com/watch?v=cMqdMMDhR3Q',
@@ -149,7 +188,7 @@ export default function Home() {
     },
     {
       name: 'Krishi Rakshak',
-      description: 'AI-based solution to reduce farmer suicides using intelligent systems for healthcare, prediction, and diagnostics. Built in 36 hours at HackOrbit 2025.',
+      description: 'Farmers deserve hope, not despair. Krishi Rakshak is an AI lifeline, built in just 36 hours at HackOrbit 2025, using NLP to predict crop risks and connect farmers to mental health support.',
       technologies: ['Python', 'Hugging Face', 'NLP', 'Computer Vision'],
       image: '/images/farmer-bot.JPG',
       link: 'https://www.youtube.com/watch?v=mbrtD78GHZs',
@@ -157,7 +196,7 @@ export default function Home() {
     },
     {
       name: 'Prompter AI',
-      description: 'AI-powered productivity web app that converts natural language into structured task plans with secure authentication and dynamic UI.',
+      description: 'Turn chaos into clarity. Prompter AI is a sleek web app that transforms your natural language ramblings into structured task plans, wrapped in a dynamic, user-friendly UI.',
       technologies: ['Next.js', 'TypeScript', 'Node.js', 'PostgreSQL', 'Tailwind CSS'],
       image: '/images/prompter-ai.png',
       link: 'https://prompter-ai-rev.vercel.app',
@@ -165,7 +204,7 @@ export default function Home() {
     },
     {
       name: 'Tamizh Kanini – Grammarly for Tamil',
-      description: 'Chrome extension that works across all websites, offering instant grammar, spelling, and sentence corrections in Tamil — like Grammarly, but for Tamil.',
+      description: 'Write Tamil with confidence. Tamizh Kanini is a Chrome extension that brings Grammarly-like magic to Tamil, offering instant grammar, spelling, and sentence fixes across any website.',
       technologies: ['React.js', 'Tailwind CSS', 'Python', 'FastAPI', 'Tamil LLaMA'],
       image: '/images/tamil-chrome.png',
       link: '',
@@ -312,9 +351,10 @@ export default function Home() {
               <span id="tooltip-text">About Me</span>
               <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-black"></div>
             </div>
-            {navIcons.map(({ section, icon }) => (
+            {navIcons.map(({ section, icon }, index) => (
               <div
                 key={section}
+                ref={el => { if (el) navItemsRef.current[index] = el; }}
                 tabIndex={0}
                 className="relative inline-flex items-center justify-center rounded-2xl bg-[#060606] border-[#9CE5E7] border-2 shadow-md cursor-pointer transition-all duration-300 w-[50px] h-[50px] overflow-hidden min-h-[44px] min-w-[44px] focus:outline-none focus:ring-2 focus:ring-jarvis-accent focus:ring-offset-2 focus:ring-offset-black group"
                 onClick={() => {

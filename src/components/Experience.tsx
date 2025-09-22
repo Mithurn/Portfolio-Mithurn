@@ -1,4 +1,8 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 type WorkHistory = {
   company: React.ReactNode;
@@ -15,14 +19,60 @@ type ExperienceProps = {
   workHistory: WorkHistory[];
 };
 
-const Experience: React.FC<ExperienceProps> = ({ workHistory }) => (
-  <div id="history" className="min-h-screen flex flex-col items-center py-8 px-4 sm:px-6 md:px-8 bg-black relative overflow-hidden">
+const Experience: React.FC<ExperienceProps> = ({ workHistory }) => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const experienceCardsRef = useRef<HTMLDivElement[]>([]);
+  const floatingElementsRef = useRef<HTMLDivElement[]>([]);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 90%',
+        end: 'bottom 10%',
+        toggleActions: 'play none none none'
+      }
+    });
+
+    // Title animation - simple fade + slideUp
+    tl.fromTo(titleRef.current,
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }
+    );
+
+    // Experience cards - simple fade + slideUp (staggered)
+    tl.fromTo(experienceCardsRef.current,
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out' },
+      '-=0.3'
+    );
+
+    return () => {
+      tl.kill();
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, [workHistory]);
+
+  return (
+    <div ref={sectionRef} id="history" className="min-h-screen flex flex-col items-center py-8 px-4 sm:px-6 md:px-8 bg-black relative overflow-hidden">
     {/* Subtle Background Animations */}
     <div className="absolute inset-0 pointer-events-none">
       {/* Timeline Dots */}
-      <div className="absolute top-1/4 left-1/5 w-2 h-2 bg-jarvis-accent/25 rounded-full animate-pulse" style={{animationDuration: '2s'}}></div>
-      <div className="absolute top-1/2 left-2/3 w-1.5 h-1.5 bg-jarvis-accent/20 rounded-full animate-pulse" style={{animationDuration: '3s', animationDelay: '1s'}}></div>
-      <div className="absolute bottom-1/4 right-1/4 w-1 h-1 bg-jarvis-accent/15 rounded-full animate-pulse" style={{animationDuration: '4s', animationDelay: '2s'}}></div>
+      <div 
+        ref={el => { if (el) floatingElementsRef.current[0] = el; }}
+        className="absolute top-1/4 left-1/5 w-2 h-2 bg-jarvis-accent/25 rounded-full"
+      ></div>
+      <div 
+        ref={el => { if (el) floatingElementsRef.current[1] = el; }}
+        className="absolute top-1/2 left-2/3 w-1.5 h-1.5 bg-jarvis-accent/20 rounded-full"
+      ></div>
+      <div 
+        ref={el => { if (el) floatingElementsRef.current[2] = el; }}
+        className="absolute bottom-1/4 right-1/4 w-1 h-1 bg-jarvis-accent/15 rounded-full"
+      ></div>
       
       {/* Connection Lines */}
       <svg className="absolute inset-0 w-full h-full opacity-10">
@@ -34,7 +84,7 @@ const Experience: React.FC<ExperienceProps> = ({ workHistory }) => (
         </line>
       </svg>
     </div>
-    <h1 className="font-orbitron text-jarvis-accent text-shadow-neon text-xl sm:text-2xl md:text-3xl font-bold text-center mb-6 animate-fade-in">
+    <h1 ref={titleRef} className="font-orbitron text-jarvis-accent text-shadow-neon text-xl sm:text-2xl md:text-3xl font-bold text-center mb-6">
       History
     </h1>
     
@@ -61,12 +111,18 @@ const Experience: React.FC<ExperienceProps> = ({ workHistory }) => (
       {workHistory.map((job, index) => (
         <div 
           key={index} 
-          className="flex flex-col lg:flex-row gap-6 md:gap-10 items-center justify-center font-techmono mx-1 sm:mx-4 animate-fade-in-up relative"
-          style={{ animationDelay: `${index * 200}ms` }}
+          ref={el => { if (el) experienceCardsRef.current[index] = el; }}
+          className="flex flex-col lg:flex-row gap-6 md:gap-10 items-center justify-center font-techmono mx-1 sm:mx-4 relative"
         >
           {/* Timeline Connector Line */}
           {index < workHistory.length - 1 && (
-            <div className="absolute left-1/2 top-full w-px h-8 bg-gradient-to-b from-jarvis-accent/40 to-transparent hidden lg:block" />
+            <div 
+              className="absolute left-1/2 top-full w-px h-8 bg-gradient-to-b from-jarvis-accent/40 to-transparent hidden lg:block"
+              style={{
+                boxShadow: '0px 0px 5px rgba(156, 229, 231, 0.3)',
+                animation: 'pulse 2s ease-in-out infinite'
+              }}
+            />
           )}
           
           <div className={`w-full md:w-[200px] lg:w-[500px] ${index % 2 === 0 ? 'lg:order-1' : 'lg:order-2'}`}> 
@@ -151,6 +207,7 @@ const Experience: React.FC<ExperienceProps> = ({ workHistory }) => (
       ))}
     </div>
   </div>
-);
+  );
+};
 
 export default Experience; 

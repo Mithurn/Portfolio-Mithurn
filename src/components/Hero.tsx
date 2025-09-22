@@ -1,83 +1,175 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
 
 const Hero = () => {
   const [typedText, setTypedText] = useState('');
   const [showCursor, setShowCursor] = useState(true);
   const fullText = '"Just A Rather Very Intelligent System"';
   const typingSpeed = 100; // milliseconds per character
+  
+  // Refs for GSAP animations
+  const heroRef = useRef<HTMLDivElement>(null);
+  const jarvisLinesRef = useRef<HTMLDivElement[]>([]);
+  const taglineRef = useRef<HTMLDivElement>(null);
+  const cursorRef = useRef<HTMLSpanElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
 
+  // GSAP Animation Timeline
   useEffect(() => {
-    // Start typing right after the JARVIS ASCII art animation completes
-    const startTyping = setTimeout(() => {
-      let currentIndex = 0;
-      
-      const typeInterval = setInterval(() => {
-        if (currentIndex < fullText.length) {
-          setTypedText(fullText.slice(0, currentIndex + 1));
-          currentIndex++;
-        } else {
-          clearInterval(typeInterval);
-        }
-      }, typingSpeed);
+    if (!heroRef.current) return;
 
-      return () => clearInterval(typeInterval);
-    }, 3500); // Start typing after 3.5 seconds (right after ASCII art completes)
+    const tl = gsap.timeline();
+    
+    // Set initial states
+    gsap.set(jarvisLinesRef.current, { 
+      opacity: 0, 
+      y: 50, 
+      rotationX: 90,
+      transformOrigin: "center bottom"
+    });
+    gsap.set(taglineRef.current, { opacity: 0, y: 30 });
+    gsap.set(cursorRef.current, { opacity: 0 });
+    gsap.set(glowRef.current, { opacity: 0 });
 
-    return () => clearTimeout(startTyping);
+    // Staggered JARVIS ASCII art reveal with 3D effect
+    tl.to(jarvisLinesRef.current, {
+      opacity: 1,
+      y: 0,
+      rotationX: 0,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: "back.out(1.7)",
+      onComplete: () => {
+        // Start typing effect after ASCII art completes
+        startTypingEffect();
+      }
+    }, "-=0.3");
+
+    // Power-on glow effect
+    tl.to(glowRef.current, {
+      opacity: 1,
+      duration: 1,
+      ease: "power2.out"
+    }, "-=0.5");
+
+    // Tagline reveal
+    tl.to(taglineRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: 0.6,
+      ease: "power2.out"
+    }, "-=0.3");
+
+    // Cursor blinking
+    tl.to(cursorRef.current, {
+      opacity: 1,
+      duration: 0.3
+    }, "-=0.2");
+
+    return () => {
+      tl.kill();
+    };
   }, []);
 
-  // Blinking cursor effect
-  useEffect(() => {
-    const cursorInterval = setInterval(() => {
-      setShowCursor(prev => !prev);
-    }, 530); // Blink every 530ms
+  const startTypingEffect = () => {
+    let currentIndex = 0;
+    
+    const typeInterval = setInterval(() => {
+      if (currentIndex < fullText.length) {
+        setTypedText(fullText.slice(0, currentIndex + 1));
+        currentIndex++;
+      } else {
+        clearInterval(typeInterval);
+      }
+    }, typingSpeed);
 
-    return () => clearInterval(cursorInterval);
+    return () => clearInterval(typeInterval);
+  };
+
+  // Enhanced cursor blinking with GSAP
+  useEffect(() => {
+    if (!cursorRef.current) return;
+
+    const cursorTl = gsap.timeline({ repeat: -1 });
+    cursorTl.to(cursorRef.current, {
+      opacity: 0,
+      duration: 0.5,
+      ease: "power2.inOut"
+    }).to(cursorRef.current, {
+      opacity: 1,
+      duration: 0.5,
+      ease: "power2.inOut"
+    });
+
+    return () => {
+      cursorTl.kill();
+    };
   }, []);
 
   return (
-    <div className="h-screen flex flex-col items-center justify-center overflow-hidden relative z-10 text-center">
-      {/* Scan line effect */}
-      <div className="absolute inset-0 animate-scan-line pointer-events-none"></div>
+    <div ref={heroRef} className="h-screen flex flex-col items-center justify-center overflow-hidden relative z-10 text-center">
+      
       <pre className="font-mono text-[#9CE5E7] whitespace-pre text-[10px] sm:text-xs md:text-xl lg:text-2xl pb-0 md:pb-10 pl-0 text-center flex flex-col items-center justify-center">
-        {/* Empty line with delay */}
-        <div className="animate-boot-up boot-delay-1 opacity-0" style={{textShadow: 'rgb(200, 200, 200) 0px 0px 10px'}}>
+        {/* Empty line */}
+        <div style={{textShadow: 'rgb(200, 200, 200) 0px 0px 10px'}}>
           {`                                              `}
         </div>
-        {/* JARVIS ASCII Art - Custom, piOS-style, with spacing and symbols */}
-        <div className="animate-boot-up boot-delay-2 opacity-0" style={{textShadow: '0 0 10px #9CE5E7, 0 0 20px #9CE5E7'}}>
+        
+        {/* JARVIS ASCII Art with GSAP refs */}
+        <div 
+          ref={el => { if (el) jarvisLinesRef.current[0] = el; }}
+          style={{textShadow: '0 0 10px #9CE5E7, 0 0 20px #9CE5E7'}}
+        >
           {`     ██╗ █████╗ ██████╗ ██╗   ██╗██╗███████╗`}
         </div>
-        <div className="animate-boot-up boot-delay-3 opacity-0" style={{textShadow: '0 0 10px #9CE5E7, 0 0 20px #9CE5E7'}}>
+        <div 
+          ref={el => { if (el) jarvisLinesRef.current[1] = el; }}
+          style={{textShadow: '0 0 10px #9CE5E7, 0 0 20px #9CE5E7'}}
+        >
           {`     ██║██╔══██╗██╔══██╗██║   ██║██║██╔════╝`}
         </div>
-        <div className="animate-boot-up boot-delay-4 opacity-0" style={{textShadow: '0 0 10px #9CE5E7, 0 0 20px #9CE5E7'}}>
+        <div 
+          ref={el => { if (el) jarvisLinesRef.current[2] = el; }}
+          style={{textShadow: '0 0 10px #9CE5E7, 0 0 20px #9CE5E7'}}
+        >
           {`     ██║███████║██████╔╝██║   ██║██║███████╗`}
         </div>
-        <div className="animate-boot-up boot-delay-5 opacity-0" style={{textShadow: '0 0 10px #9CE5E7, 0 0 20px #9CE5E7'}}>
+        <div 
+          ref={el => { if (el) jarvisLinesRef.current[3] = el; }}
+          style={{textShadow: '0 0 10px #9CE5E7, 0 0 20px #9CE5E7'}}
+        >
           {`██   ██║██╔══██║██╔══██╗╚██╗ ██╔╝██║╚════██║`}
         </div>
-        <div className="animate-boot-up boot-delay-6 opacity-0" style={{textShadow: '0 0 10px #9CE5E7, 0 0 20px #9CE5E7'}}>
+        <div 
+          ref={el => { if (el) jarvisLinesRef.current[4] = el; }}
+          style={{textShadow: '0 0 10px #9CE5E7, 0 0 20px #9CE5E7'}}
+        >
           {`╚█████╔╝██║  ██║██║  ██║ ╚████╔╝ ██║███████║`}
         </div>
-        <div className="animate-boot-up boot-delay-7 opacity-0" style={{textShadow: '0 0 10px #9CE5E7, 0 0 20px #9CE5E7'}}>
+        <div 
+          ref={el => { if (el) jarvisLinesRef.current[5] = el; }}
+          style={{textShadow: '0 0 10px #9CE5E7, 0 0 20px #9CE5E7'}}
+        >
           {` ╚════╝ ╚═╝  ╚═╝╚═╝  ╚═╝  ╚═══╝  ╚═╝╚══════╝`}
         </div>
-        {/* Empty line with delay */}
-        <div className="animate-boot-up boot-delay-8 opacity-0" style={{textShadow: 'rgb(200, 200, 200) 0px 0px 10px'}}>
+        
+        {/* Empty line */}
+        <div style={{textShadow: 'rgb(200, 200, 200) 0px 0px 10px'}}>
           {`                                              `}
         </div>
-        <div className="animate-boot-up boot-delay-8 opacity-0" style={{textShadow: 'rgb(200, 200, 200) 0px 0px 10px'}}>
+        <div>
           {``}
         </div>
-        {/* Tagline with typing effect and blinking cursor */}
-        <div className="text-white font-techmono animate-boot-up boot-delay-8 opacity-0 text-[11px] sm:text-xs md:text-lg text-center p-1 md:p-2 relative">
+        
+        {/* Enhanced Tagline with GSAP */}
+        <div ref={taglineRef} className="text-white font-techmono text-[11px] sm:text-xs md:text-lg text-center p-1 md:p-2 relative">
           <span className="animate-flicker">{typedText}</span>
-          <span className={`ml-1 ${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-100`}>|</span>
+          <span ref={cursorRef} className="ml-1 text-[#9CE5E7]">|</span>
         </div>
       </pre>
-      {/* Power-on glow effect */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#9CE5E7]/5 to-transparent animate-power-on opacity-0 pointer-events-none"></div>
+      
+      {/* Enhanced Power-on glow effect */}
+      <div ref={glowRef} className="absolute inset-0 bg-gradient-to-b from-transparent via-[#9CE5E7]/5 to-transparent pointer-events-none"></div>
     </div>
   );
 };

@@ -1,14 +1,116 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import JarvisHologram from './JarvisHologram';
 
-const WhoAmI = () => (
-  <div id="about" className="min-h-screen flex flex-col md:flex-row items-center justify-center gap-8 md:gap-10 py-8 md:py-16 px-4 sm:px-6 md:px-8 bg-black relative overflow-hidden">
+gsap.registerPlugin(ScrollTrigger);
+
+const WhoAmI = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const leftContentRef = useRef<HTMLDivElement>(null);
+  const rightContentRef = useRef<HTMLDivElement>(null);
+  const floatingElementsRef = useRef<HTMLDivElement[]>([]);
+  const textElementsRef = useRef<HTMLParagraphElement[]>([]);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 90%',
+        end: 'bottom 10%',
+        once: true
+      }
+    });
+
+    // Title animation - slower and smoother
+    tl.fromTo(titleRef.current, 
+      { opacity: 0, y: 40, scale: 0.9 },
+      { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: 'power3.out' }
+    );
+
+    // Content animations - slower and smoother
+    tl.fromTo(leftContentRef.current, 
+      { opacity: 0, x: -60, rotationY: -10, scale: 0.9 },
+      { opacity: 1, x: 0, rotationY: 0, scale: 1, duration: 1.0, ease: 'power3.out' },
+      '-=0.6'
+    );
+
+    tl.fromTo(rightContentRef.current, 
+      { opacity: 0, x: 60, scale: 0.85, rotationY: 10 },
+      { opacity: 1, x: 0, scale: 1, rotationY: 0, duration: 1.0, ease: 'power3.out' },
+      '-=0.8'
+    );
+
+    // Text reveal - scroll-triggered with typewriter effect
+    textElementsRef.current.forEach((textElement, index) => {
+      if (!textElement) return;
+      
+      gsap.fromTo(textElement, 
+        { 
+          opacity: 0, 
+          y: 30, 
+          scale: 0.95,
+          clipPath: "inset(0 100% 0 0)"
+        },
+        { 
+          opacity: 1, 
+          y: 0, 
+          scale: 1,
+          clipPath: "inset(0 0% 0 0)",
+          duration: 1.0, 
+          delay: index * 0.3,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: textElement,
+            start: 'top 80%',
+            end: 'bottom 20%',
+            once: true
+          }
+        }
+      );
+    });
+
+    // Floating elements - slower and smoother
+    tl.fromTo(floatingElementsRef.current, 
+      { opacity: 0, scale: 0.7, rotation: 120 },
+      { 
+        opacity: 1, 
+        scale: 1, 
+        rotation: 0, 
+        duration: 1.0, 
+        stagger: 0.2, 
+        ease: 'power3.out' 
+      },
+      '-=0.4'
+    );
+
+
+    return () => {
+      tl.kill();
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
+
+  return (
+    <div ref={sectionRef} id="about" className="min-h-screen flex flex-col md:flex-row items-center justify-center gap-8 md:gap-10 py-8 md:py-16 px-4 sm:px-6 md:px-8 bg-black relative overflow-hidden">
     {/* Subtle Background Animations */}
     <div className="absolute inset-0 pointer-events-none">
       {/* Floating Data Points */}
-      <div className="absolute top-1/4 left-1/6 w-2 h-2 bg-jarvis-accent/20 rounded-full animate-float" style={{animationDelay: '0s', animationDuration: '4s'}}></div>
-      <div className="absolute top-3/4 right-1/4 w-1 h-1 bg-jarvis-accent/15 rounded-full animate-float" style={{animationDelay: '2s', animationDuration: '6s'}}></div>
-      <div className="absolute top-1/2 left-3/4 w-1.5 h-1.5 bg-jarvis-accent/25 rounded-full animate-float" style={{animationDelay: '4s', animationDuration: '5s'}}></div>
+      <div 
+        ref={el => { if (el) floatingElementsRef.current[0] = el; }}
+        className="absolute top-1/4 left-1/6 w-2 h-2 bg-jarvis-accent/20 rounded-full"
+      ></div>
+      <div 
+        ref={el => { if (el) floatingElementsRef.current[1] = el; }}
+        className="absolute top-3/4 right-1/4 w-1 h-1 bg-jarvis-accent/15 rounded-full"
+      ></div>
+      <div 
+        ref={el => { if (el) floatingElementsRef.current[2] = el; }}
+        className="absolute top-1/2 left-3/4 w-1.5 h-1.5 bg-jarvis-accent/25 rounded-full"
+      ></div>
       
       {/* Subtle Grid Lines */}
       <svg className="absolute inset-0 w-full h-full opacity-5">
@@ -20,29 +122,43 @@ const WhoAmI = () => (
         <rect width="100%" height="100%" fill="url(#aboutGrid)" />
       </svg>
     </div>
-    <div className="w-full md:w-[45%] h-96 md:h-[40rem] mb-6 md:mb-0 flex items-center justify-center animate-fade-in-up relative">
+    <div ref={rightContentRef} className="w-full md:w-[45%] h-96 md:h-[40rem] mb-6 md:mb-0 flex items-center justify-center relative">
       <JarvisHologram />
     </div>
-    <div className="w-full md:w-[55%] space-y-4 md:space-y-6 font-techmono px-2 md:px-4 text-left animate-fade-in-up" style={{ animationDelay: '200ms' }}>
-      <h1 className="font-orbitron capitalize text-jarvis-accent text-shadow-neon text-2xl md:text-3xl font-bold text-center mb-6 animate-fade-in">
+    <div ref={leftContentRef} className="w-full md:w-[55%] space-y-4 md:space-y-6 font-techmono px-2 md:px-4 text-left">
+      <h1 ref={titleRef} className="font-orbitron capitalize text-jarvis-accent text-shadow-neon text-2xl md:text-3xl font-bold text-center mb-6">
         Who am i
       </h1>
       <div className="space-y-3 md:space-y-4">
-        <p className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed max-w-3xl font-techmono mx-auto transition-colors duration-300 hover:text-white animate-fade-in" style={{ animationDelay: '400ms' }}>
-          I&apos;m <span className="text-jarvis-accent font-semibold">Mithurn Jeromme</span> — a full-stack developer and AI engineer who bridges the gap between cutting-edge technology and real-world impact. I specialize in building intelligent systems that don&apos;t just work, but transform how people interact with technology.
+        <p 
+          ref={el => { if (el) textElementsRef.current[0] = el; }}
+          className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed max-w-3xl font-techmono mx-auto transition-colors duration-300 hover:text-white"
+        >
+          I&apos;m <span className="text-jarvis-accent font-semibold">Mithun Jeromme</span> — a full-stack developer, AI engineer, and relentless creator who thrives on crafting cool, impactful stuff. From Chrome extensions that streamline my own workflow to AI-powered bots that empower farmers with data-driven decisions, I build products that spark joy, solve problems, and leave a lasting impression.
         </p>
-        <p className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed max-w-3xl font-techmono mx-auto transition-colors duration-300 hover:text-white animate-fade-in" style={{ animationDelay: '500ms' }}>
-          With expertise spanning <span className="text-jarvis-accent">AI/ML, embedded systems, and modern web development</span>, I&apos;ve delivered solutions that range from autonomous medical robots to AI-powered productivity platforms. My approach combines technical excellence with user-centered design.
+        <p 
+          ref={el => { if (el) textElementsRef.current[1] = el; }}
+          className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed max-w-3xl font-techmono mx-auto transition-colors duration-300 hover:text-white"
+        >
+          My expertise lies at the intersection of <span className="text-jarvis-accent">AI/ML, embedded systems, and modern web development</span>. I don&apos;t just write code—I architect intelligent systems that transform how people live and work.
         </p>
-        <p className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed max-w-3xl font-techmono mx-auto transition-colors duration-300 hover:text-white animate-fade-in" style={{ animationDelay: '600ms' }}>
-          As a <span className="text-jarvis-accent">freelance developer on Upwork</span>, I&apos;ve helped clients scale their digital presence and streamline operations. My projects consistently achieve high client satisfaction through clean code, robust architecture, and intuitive user experiences.
+        <p 
+          ref={el => { if (el) textElementsRef.current[2] = el; }}
+          className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed max-w-3xl font-techmono mx-auto transition-colors duration-300 hover:text-white"
+        >
+          My work is driven by a passion for <span className="text-jarvis-accent">measurable impact and user-centered design</span>. I&apos;m obsessed with building products that make life easier, smarter, and more exciting.
         </p>
-        <p className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed max-w-3xl font-techmono mx-auto transition-colors duration-300 hover:text-white animate-fade-in" style={{ animationDelay: '700ms' }}>
-          I&apos;m passionate about <span className="text-jarvis-accent">solving complex problems</span> and believe that the best code is the one that makes someone&apos;s life easier. Whether it&apos;s reducing hospital delivery times by 60% or helping farmers make data-driven decisions, I focus on measurable impact.
+        <p 
+          ref={el => { if (el) textElementsRef.current[3] = el; }}
+          className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed max-w-3xl font-techmono mx-auto transition-colors duration-300 hover:text-white"
+        >
+          Every line of code I write is a step toward <span className="text-jarvis-accent">solving complex challenges</span> and creating experiences that stick with users long after they&apos;ve logged off.
         </p>
-        <p className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed max-w-3xl font-techmono mx-auto transition-colors duration-300 hover:text-white animate-fade-in" style={{ animationDelay: '800ms' }}>
-          <span className="text-jarvis-accent font-semibold">I don&apos;t just write code.</span><br />
-          I architect solutions, optimize performance, and create experiences that users love.
+        <p 
+          ref={el => { if (el) textElementsRef.current[4] = el; }}
+          className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed max-w-3xl font-techmono mx-auto transition-colors duration-300 hover:text-white"
+        >
+          <span className="text-jarvis-accent font-semibold">Let&apos;s build something unforgettable together.</span>
         </p>
       </div>
       <div className="animate-fade-in" style={{ animationDelay: '900ms' }}>
@@ -57,6 +173,7 @@ const WhoAmI = () => (
       </div>
     </div>
   </div>
-);
+  );
+};
 
 export default WhoAmI; 
