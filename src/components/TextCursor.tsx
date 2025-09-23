@@ -1,6 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+interface TrailPoint {
+  id: number;
+  x: number;
+  y: number;
+  angle: number;
+  randomX?: number;
+  randomY?: number;
+  randomRotate?: number;
+}
+
 const TextCursor = ({
   text = '⚛️',
   delay = 0.01,
@@ -11,7 +21,7 @@ const TextCursor = ({
   removalInterval = 30,
   maxPoints = 5
 }) => {
-  const [trail, setTrail] = useState([]);
+  const [trail, setTrail] = useState<TrailPoint[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
   const lastMoveTimeRef = useRef(Date.now());
   const idCounter = useRef(0);
