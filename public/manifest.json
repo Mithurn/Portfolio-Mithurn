@@ -1,0 +1,19 @@
+{
+  "name": "JARVIS - Mithurn Jeromme's Portfolio",
+  "short_name": "JARVIS",
+  "description": "Full-Stack Developer, AI/ML Engineer, and Computer Science student's portfolio",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#9CE5E7",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "16x16 32x32 48x48",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": ["portfolio", "developer", "technology"],
+  "lang": "en-US"
+}

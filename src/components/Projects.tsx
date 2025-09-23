@@ -222,9 +222,10 @@ const Projects: React.FC<ProjectsProps> = ({ projects }) => {
             >
               <img 
                 src={project.image} 
-                alt={project.name}
+                alt={`${project.name} project screenshot - ${project.description.slice(0, 100)}...`}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 bg-jarvis-bg2"
                 style={{ backgroundColor: '#10151a' }}
+                loading="lazy"
               />
               <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-300"></div>
             </div>

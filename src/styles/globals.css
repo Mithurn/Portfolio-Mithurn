@@ -574,3 +574,148 @@ a:focus {
     cursor: auto;
   }
 }
+
+/* JARVIS ASCII Hover Effects */
+.jarvis-line {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 1;
+}
+
+.jarvis-line:hover {
+  transform: scale(1.05) translateZ(20px) !important;
+  filter: brightness(1.1) drop-shadow(0 0 15px #9CE5E7) drop-shadow(0 0 30px #9CE5E7);
+  text-shadow: 0 0 15px #9CE5E7, 0 0 30px #9CE5E7, 0 0 45px #9CE5E7 !important;
+  z-index: 10 !important;
+}
+
+.jarvis-line:hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent, rgba(156, 229, 231, 0.1), transparent);
+  animation: shimmer 1.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Custom gradient utilities for Hero animations */
+.bg-gradient-radial {
+  background: radial-gradient(circle, var(--tw-gradient-stops));
+}
+
+.bg-gradient-radial-from-center {
+  background: radial-gradient(circle at center, var(--tw-gradient-stops));
+}
+
+.bg-gradient-radial-from-top {
+  background: radial-gradient(circle at top, var(--tw-gradient-stops));
+}
+
+.bg-gradient-radial-from-bottom {
+  background: radial-gradient(circle at bottom, var(--tw-gradient-stops));
+}
+
+/* Enhanced holographic effects */
+.holographic-scan {
+  position: relative;
+  overflow: hidden;
+}
+
+.holographic-scan::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(156, 229, 231, 0.4), transparent);
+  animation: holographic-sweep 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes holographic-sweep {
+  0% {
+    left: -100%;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Particle system styles */
+.particle-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* Enhanced glow effects */
+.glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow-pulse {
+  0% {
+    text-shadow: 0 0 5px #9CE5E7, 0 0 10px #9CE5E7, 0 0 15px #9CE5E7;
+    filter: brightness(1);
+  }
+  100% {
+    text-shadow: 0 0 10px #9CE5E7, 0 0 20px #9CE5E7, 0 0 30px #9CE5E7, 0 0 40px #9CE5E7;
+    filter: brightness(1.2);
+  }
+}
+
+/* 3D transform utilities */
+.transform-gpu {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Advanced hover effects */
+.hover-3d {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-3d:hover {
+  transform: translateZ(20px) rotateX(5deg) rotateY(5deg);
+}
+
+/* Enhanced cursor effects */
+.cursor-glow {
+  filter: drop-shadow(0 0 10px #9CE5E7);
+}
+
+/* Performance optimizations */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+.will-change-all {
+  will-change: transform, opacity, filter;
+}
