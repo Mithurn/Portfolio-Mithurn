@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Image from 'next/image';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -133,7 +134,15 @@ const Experience: React.FC<ExperienceProps> = ({ workHistory }) => {
                 className="block w-full min-h-[60px] md:h-64 bg-jarvis-bg2 border border-jarvis-accent/30 rounded-xl flex flex-col items-center justify-center p-2 md:p-6 gap-1 md:gap-3 shadow-neon font-techmono transition-all duration-300 hover:border-jarvis-accent/50 hover:shadow-[0_0_20px_rgba(156,229,231,0.3)] hover:scale-105 cursor-pointer group"
               >
                 {job.image && (
-                  <img src={job.image} alt={`${typeof job.company === 'string' ? job.company : 'Company'} logo - ${typeof job.role === 'string' ? job.role : 'Work experience'}`} className="h-10 md:h-24 w-auto object-contain mb-1 md:mb-2 rounded shadow transition-transform duration-300 group-hover:scale-110" loading="lazy" />
+                  <div className="relative h-10 md:h-24 w-auto mb-1 md:mb-2">
+                    <Image 
+                      src={job.image} 
+                      alt={`${typeof job.company === 'string' ? job.company : 'Company'} logo - ${typeof job.role === 'string' ? job.role : 'Work experience'}`} 
+                      className="object-contain rounded shadow transition-transform duration-300 group-hover:scale-110" 
+                      fill
+                      sizes="(max-width: 768px) 40px, 96px"
+                    />
+                  </div>
                 )}
                 <div className="text-jarvis-accent font-orbitron text-center text-shadow-neon w-full">
                   <div className="font-semibold text-base sm:text-lg md:text-xl font-orbitron text-jarvis-accent text-shadow-neon text-center w-full group-hover:text-jarvis-accent transition-colors duration-300">{job.company}</div>
@@ -146,7 +155,15 @@ const Experience: React.FC<ExperienceProps> = ({ workHistory }) => {
             ) : (
               <div className="w-full min-h-[60px] md:h-64 bg-jarvis-bg2 border border-jarvis-accent/30 rounded-xl flex flex-col items-center justify-center p-2 md:p-6 gap-1 md:gap-3 shadow-neon font-techmono transition-all duration-300 hover:border-jarvis-accent/50 hover:shadow-[0_0_20px_rgba(156,229,231,0.3)]">
                 {job.image && (
-                  <img src={job.image} alt={`${typeof job.company === 'string' ? job.company : 'Company'} logo - ${typeof job.role === 'string' ? job.role : 'Work experience'}`} className="h-10 md:h-24 w-auto object-contain mb-1 md:mb-2 rounded shadow transition-transform duration-300 hover:scale-105" loading="lazy" />
+                  <div className="relative h-10 md:h-24 w-auto mb-1 md:mb-2">
+                    <Image 
+                      src={job.image} 
+                      alt={`${typeof job.company === 'string' ? job.company : 'Company'} logo - ${typeof job.role === 'string' ? job.role : 'Work experience'}`} 
+                      className="object-contain rounded shadow transition-transform duration-300 hover:scale-105" 
+                      fill
+                      sizes="(max-width: 768px) 40px, 96px"
+                    />
+                  </div>
                 )}
                 <div className="text-jarvis-accent font-orbitron text-center text-shadow-neon w-full">
                   <div className="font-semibold text-base sm:text-lg md:text-xl font-orbitron text-jarvis-accent text-shadow-neon text-center w-full">{job.company}</div>
