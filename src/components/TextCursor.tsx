@@ -12,7 +12,7 @@ const TextCursor = ({
   maxPoints = 5
 }) => {
   const [trail, setTrail] = useState([]);
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const lastMoveTimeRef = useRef(Date.now());
   const idCounter = useRef(0);
 
