@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Image from 'next/image';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -220,12 +221,13 @@ const Projects: React.FC<ProjectsProps> = ({ projects }) => {
               ref={el => { if (el) projectImagesRef.current[index] = el; }}
               className="h-64 sm:h-72 md:h-full md:w-1/2 relative overflow-hidden rounded-t-2xl md:rounded-r-none bg-jarvis-bg2 opacity-0"
             >
-              <img 
+              <Image 
                 src={project.image} 
                 alt={`${project.name} project screenshot - ${project.description.slice(0, 100)}...`}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 bg-jarvis-bg2"
                 style={{ backgroundColor: '#10151a' }}
-                loading="lazy"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
               <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-300"></div>
             </div>

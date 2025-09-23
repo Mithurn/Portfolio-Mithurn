@@ -2,9 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import TextCursor from './TextCursor';
 
+// Extend Window interface for typeInterval
+declare global {
+  interface Window {
+    typeInterval?: NodeJS.Timeout | null;
+  }
+}
+
 const Hero = () => {
   const [typedText, setTypedText] = useState('');
-  const [showCursor, setShowCursor] = useState(true);
   const fullText = '"Just A Rather Very Intelligent System"';
   const typingSpeed = 50; // milliseconds per character
   
