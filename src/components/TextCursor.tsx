@@ -16,7 +16,7 @@ const TextCursor = ({
   const lastMoveTimeRef = useRef(Date.now());
   const idCounter = useRef(0);
 
-  const handleMouseMove = e => {
+  const handleMouseMove = (e: MouseEvent) => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
