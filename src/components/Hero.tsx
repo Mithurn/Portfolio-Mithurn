@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import TextCursor from './TextCursor';
 
 const Hero = () => {
   const [typedText, setTypedText] = useState('');
@@ -108,8 +109,21 @@ const Hero = () => {
 
   return (
     <div ref={heroRef} className="h-screen flex flex-col items-center justify-center overflow-hidden relative z-10 text-center">
+      {/* TextCursor for Hero section only - positioned absolutely */}
+      <div className="absolute inset-0 z-20">
+        <TextCursor
+          text="●"
+          delay={0.01}
+          spacing={60}
+          followMouseDirection={true}
+          randomFloat={true}
+          exitDuration={0.4}
+          removalInterval={25}
+          maxPoints={8}
+        />
+      </div>
       
-      <pre className="font-mono text-[#9CE5E7] whitespace-pre text-[10px] sm:text-xs md:text-xl lg:text-2xl pb-0 md:pb-10 pl-0 text-center flex flex-col items-center justify-center">
+      <pre className="font-mono text-[#9CE5E7] whitespace-pre text-[10px] sm:text-xs md:text-xl lg:text-2xl pb-0 md:pb-10 pl-0 text-center flex flex-col items-center justify-center relative z-10">
         {/* Empty line */}
         <div style={{textShadow: 'rgb(200, 200, 200) 0px 0px 10px'}}>
           {`                                              `}

@@ -8,6 +8,7 @@ import Skills from '../components/Skills';
 import Experience from '../components/Experience';
 import Projects from '../components/Projects';
 import Footer from '../components/Footer';
+import JarvisCursor from '../components/JarvisCursor';
 import { SiJavascript, SiTypescript, SiNextdotjs, SiTailwindcss, SiNodedotjs, SiPostgresql, SiPython, SiHuggingface, SiCplusplus, SiArduino, SiEspressif, SiGit, SiVercel, SiPandas, SiReact, SiExpress, SiOpencv, SiVsco, SiPostman, SiLinux, SiFirebase, SiFigma, SiCodesandbox } from 'react-icons/si';
 import PlatformIOIcon from '../components/PlatformIOIcon';
 import VSCodeIcon from '../components/VSCodeIcon';
@@ -222,6 +223,11 @@ export default function Home() {
 
   return (
     <div className="bg-black overflow-hidden relative">
+      {/* Jarvis Cursor - Hidden on Hero section */}
+      <div className="hero-cursor-hidden">
+        <JarvisCursor />
+      </div>
+      
       {/* Animated HUD Background Elements */}
       <div className="fixed inset-0 pointer-events-none z-0">
         {/* Radial HUD Overlays */}
@@ -321,7 +327,7 @@ export default function Home() {
         </div>
       </div>
       
-      <SectionFadeIn><Skills skills={skills} /></SectionFadeIn>
+      <Skills skills={skills} />
       
       {/* Section Divider with Navigation Hint */}
       <div className="relative py-8">
@@ -339,7 +345,7 @@ export default function Home() {
         </div>
       </div>
       
-      <SectionFadeIn><Projects projects={projects} /></SectionFadeIn>
+      <Projects projects={projects} />
       <div className="section-divider mx-auto my-8 md:my-12" />
 
       {/* Navigation Dock (pios-eight.vercel.app style) */}
@@ -356,7 +362,7 @@ export default function Home() {
                 key={section}
                 ref={el => { if (el) navItemsRef.current[index] = el; }}
                 tabIndex={0}
-                className="relative inline-flex items-center justify-center rounded-2xl bg-[#060606] border-[#9CE5E7] border-2 shadow-md cursor-pointer transition-all duration-300 w-[50px] h-[50px] overflow-hidden min-h-[44px] min-w-[44px] focus:outline-none focus:ring-2 focus:ring-jarvis-accent focus:ring-offset-2 focus:ring-offset-black group"
+                className="relative inline-flex items-center justify-center rounded-2xl bg-[#060606] border-[#9CE5E7] border-2 shadow-md cursor-pointer transition-all duration-300 w-[50px] h-[50px] overflow-hidden min-h-[44px] min-w-[44px] focus:outline-none focus:ring-2 focus:ring-jarvis-accent focus:ring-offset-2 focus:ring-offset-black group hoverable"
                 onClick={() => {
                   setActiveSection(section);
                   document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' });

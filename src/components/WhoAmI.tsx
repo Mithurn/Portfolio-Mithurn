@@ -126,7 +126,7 @@ const WhoAmI = () => {
           href="/resume/mithurn resume.pdf" 
           target="_blank"
           className="inline-block w-auto px-3 py-2 md:px-4 md:py-2 bg-transparent text-jarvis-accent border border-jarvis-accent font-orbitron 
-                   hover:bg-jarvis-accent hover:text-jarvis-bg2 hover:shadow-[0_0_20px_rgba(156,229,231,0.6)] hover:scale-105 focus:scale-105 transition-all transition-transform duration-300 rounded-md text-[9px] sm:text-xs md:text-base shadow-neon text-left focus-visible:ring-2 focus-visible:ring-jarvis-accent min-h-[44px] min-w-[44px] flex items-center justify-center"
+                   hover:bg-jarvis-accent hover:text-jarvis-bg2 hover:shadow-[0_0_20px_rgba(156,229,231,0.6)] hover:scale-105 focus:scale-105 transition-all transition-transform duration-300 rounded-md text-[9px] sm:text-xs md:text-base shadow-neon text-left focus-visible:ring-2 focus-visible:ring-jarvis-accent min-h-[44px] min-w-[44px] flex items-center justify-center hoverable"
         >
           Download Resume
         </a>

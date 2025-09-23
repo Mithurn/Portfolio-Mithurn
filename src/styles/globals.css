@@ -23,6 +23,7 @@ body {
   background-color: var(--background);
   color: var(--body);
   overflow-x: hidden;
+  cursor: none;
 }
 
 .section-transition {
@@ -514,5 +515,62 @@ a:focus {
   }
   100% {
     box-shadow: 0 0 20px rgba(156, 229, 231, 0.6), 0 0 30px rgba(156, 229, 231, 0.4);
+  }
+}
+
+/* Jarvis Cursor Styles */
+.jarvis-cursor {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  mix-blend-mode: difference;
+}
+
+.cursor__ball {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 1000;
+  will-change: transform;
+}
+
+.cursor__ball--big {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(156, 229, 231, 0.8) 0%, rgba(156, 229, 231, 0.4) 70%, transparent 100%);
+  box-shadow: 0 0 5px #9CE5E7;
+  transition: box-shadow 0.3s ease;
+}
+
+.cursor__ball--small {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #9CE5E7;
+  box-shadow: 0 0 3px #9CE5E7;
+}
+
+/* Cursor hover effects */
+.cursor__ball--big:hover {
+  box-shadow: 0 0 20px #9CE5E7, 0 0 40px #9CE5E7;
+}
+
+/* Hide JarvisCursor on Hero section */
+.hero-cursor-hidden {
+  display: block;
+}
+
+/* Hide cursor on mobile devices */
+@media (max-width: 768px) {
+  .jarvis-cursor {
+    display: none;
+  }
+  
+  body {
+    cursor: auto;
   }
 }

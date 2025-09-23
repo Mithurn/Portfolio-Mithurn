@@ -37,8 +37,7 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
       scrollTrigger: {
         trigger: sectionRef.current,
         start: 'top 90%',
-        end: 'bottom 10%',
-        scrub: 1
+        toggleActions: 'play none none none'
       }
     });
 
@@ -116,7 +115,7 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
   return (
     <div ref={sectionRef} id="skills" className="relative w-full bg-black py-8 md:py-12 px-4 sm:px-6 md:px-8">
       <div className="w-full flex flex-col items-center mb-6 md:mb-8">
-        <h1 ref={titleRef} className="font-orbitron capitalize text-jarvis-accent text-shadow-neon text-2xl md:text-3xl font-bold text-center mb-6">
+        <h1 ref={titleRef} className="font-orbitron capitalize text-jarvis-accent text-shadow-neon text-2xl md:text-3xl font-bold text-center mb-6 opacity-0">
           Skills
         </h1>
       </div>
@@ -125,7 +124,7 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
           <div 
             key={category} 
             ref={el => { if (el) skillCategoriesRef.current[categoryIndex] = el; }}
-            className="w-full"
+            className="w-full opacity-0"
           >
             <h2 className="font-orbitron text-jarvis-accent text-lg md:text-xl font-semibold mb-4 md:mb-6 text-left tracking-wide capitalize">
               {categoryLabels[category] || category}
@@ -135,7 +134,7 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
                 <div 
                   key={index} 
                   ref={el => { if (el) skillItemsRef.current.push(el); }}
-                  className="group flex flex-col items-center justify-center p-3 md:p-4 font-techmono transition-all duration-300"
+                  className="group flex flex-col items-center justify-center p-3 md:p-4 font-techmono transition-all duration-300 opacity-0"
                 >
                   <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 bg-jarvis-bg2 border border-jarvis-accent/40 rounded-lg flex items-center justify-center group-hover:scale-110 group-hover:border-jarvis-accent group-hover:shadow-[0_0_20px_rgba(156,229,231,0.4)] transition-all duration-300 shadow-neon text-lg sm:text-xl md:text-2xl mb-2 md:mb-3">
                     {typeof skill.icon === 'string' ? (

@@ -20,7 +20,7 @@ type ProjectsProps = {
 const Projects: React.FC<ProjectsProps> = ({ projects }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
-  const projectCardsRef = useRef<HTMLAnchorElement[]>([]);
+  const projectCardsRef = useRef<HTMLDivElement[]>([]);
   const projectImagesRef = useRef<HTMLDivElement[]>([]);
   const projectContentRef = useRef<HTMLDivElement[]>([]);
 
@@ -176,7 +176,7 @@ const Projects: React.FC<ProjectsProps> = ({ projects }) => {
   return (
     <section ref={sectionRef} id="projects" className="min-h-screen w-full flex flex-col items-center justify-center py-8 md:py-16 px-4 sm:px-6 md:px-8 bg-black">
       <div className="max-w-6xl mx-auto w-full">
-        <h2 ref={titleRef} className="font-orbitron text-jarvis-accent text-shadow-neon text-xl sm:text-2xl md:text-3xl font-bold text-center mb-6">
+        <h2 ref={titleRef} className="font-orbitron text-jarvis-accent text-shadow-neon text-xl sm:text-2xl md:text-3xl font-bold text-center mb-6 opacity-0">
           Projects
         </h2>
       
@@ -201,18 +201,24 @@ const Projects: React.FC<ProjectsProps> = ({ projects }) => {
       
       <div className="flex flex-col gap-8 md:gap-10 lg:gap-12">
         {projects.map((project, index) => (
-          <a
+          <div
             key={index}
             ref={el => { if (el) projectCardsRef.current[index] = el; }}
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
+            className="group flex flex-col md:flex-row bg-jarvis-bg2 rounded-2xl h-full md:h-[300px] lg:h-[350px] border border-jarvis-accent/20 hover:border-jarvis-accent/50 focus:border-jarvis-accent transition-all duration-500 shadow-neon font-techmono transform-gpu cursor-pointer opacity-0"
+            onClick={() => window.open(project.link, '_blank', 'noopener,noreferrer')}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                window.open(project.link, '_blank', 'noopener,noreferrer');
+              }
+            }}
             tabIndex={0}
-            className="group flex flex-col md:flex-row bg-jarvis-bg2 rounded-2xl h-full md:h-[300px] lg:h-[350px] border border-jarvis-accent/20 hover:border-jarvis-accent/50 focus:border-jarvis-accent transition-all duration-500 shadow-neon font-techmono transform-gpu"
+            role="button"
+            aria-label={`View ${project.name} project`}
           >
             <div 
               ref={el => { if (el) projectImagesRef.current[index] = el; }}
-              className="h-64 sm:h-72 md:h-full md:w-1/2 relative overflow-hidden rounded-t-2xl md:rounded-r-none bg-jarvis-bg2"
+              className="h-64 sm:h-72 md:h-full md:w-1/2 relative overflow-hidden rounded-t-2xl md:rounded-r-none bg-jarvis-bg2 opacity-0"
             >
               <img 
                 src={project.image} 
@@ -224,7 +230,7 @@ const Projects: React.FC<ProjectsProps> = ({ projects }) => {
             </div>
             <div 
               ref={el => { if (el) projectContentRef.current[index] = el; }}
-              className="p-3 sm:p-4 md:p-6 flex flex-col flex-grow space-y-2 md:space-y-3 font-techmono text-left md:w-1/2"
+              className="p-3 sm:p-4 md:p-6 flex flex-col flex-grow space-y-2 md:space-y-3 font-techmono text-left md:w-1/2 opacity-0"
             >
               <div className="flex items-center justify-between">
                 <h3 className="font-orbitron text-jarvis-accent text-base sm:text-lg md:text-xl font-semibold mb-2 text-shadow-neon text-left tracking-tight transition-all duration-300 group-hover:text-jarvis-accent group-hover:brightness-110">
@@ -276,7 +282,7 @@ const Projects: React.FC<ProjectsProps> = ({ projects }) => {
                 ))}
               </div>
             </div>
-          </a>
+          </div>
         ))}
       </div>
     </div>
