@@ -230,70 +230,6 @@ export default function Home() {
       
       {/* Animated HUD Background Elements */}
       <div className="fixed inset-0 pointer-events-none z-0">
-        {/* Radial HUD Overlays */}
-        <svg className="absolute top-1/4 left-1/4 w-96 h-96 opacity-20">
-          <defs>
-            <radialGradient id="hudGradient1" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#9CE5E7" stopOpacity="0.3"/>
-              <stop offset="70%" stopColor="#9CE5E7" stopOpacity="0.1"/>
-              <stop offset="100%" stopColor="#9CE5E7" stopOpacity="0"/>
-            </radialGradient>
-          </defs>
-          <circle cx="50%" cy="50%" r="45%" fill="none" stroke="url(#hudGradient1)" strokeWidth="1" opacity="0.6">
-            <animate attributeName="r" values="45%;50%;45%" dur="4s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values="0.6;0.3;0.6" dur="4s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="50%" cy="50%" r="35%" fill="none" stroke="#9CE5E7" strokeWidth="0.5" opacity="0.4">
-            <animate attributeName="r" values="35%;40%;35%" dur="3s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="50%" cy="50%" r="25%" fill="none" stroke="#9CE5E7" strokeWidth="0.5" opacity="0.3">
-            <animate attributeName="r" values="25%;30%;25%" dur="2s" repeatCount="indefinite"/>
-          </circle>
-        </svg>
-        
-        <svg className="absolute bottom-1/4 right-1/4 w-80 h-80 opacity-15">
-          <defs>
-            <radialGradient id="hudGradient2" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#9CE5E7" stopOpacity="0.2"/>
-              <stop offset="70%" stopColor="#9CE5E7" stopOpacity="0.05"/>
-              <stop offset="100%" stopColor="#9CE5E7" stopOpacity="0"/>
-            </radialGradient>
-          </defs>
-          <circle cx="50%" cy="50%" r="40%" fill="none" stroke="url(#hudGradient2)" strokeWidth="1" opacity="0.5">
-            <animate attributeName="r" values="40%;45%;40%" dur="5s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values="0.5;0.2;0.5" dur="5s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="50%" cy="50%" r="30%" fill="none" stroke="#9CE5E7" strokeWidth="0.5" opacity="0.3">
-            <animate attributeName="r" values="30%;35%;30%" dur="4s" repeatCount="indefinite"/>
-          </circle>
-        </svg>
-        
-        {/* Radar Sweep Animation */}
-        <svg className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 opacity-10">
-          <defs>
-            <linearGradient id="radarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#9CE5E7" stopOpacity="0.8"/>
-              <stop offset="100%" stopColor="#9CE5E7" stopOpacity="0"/>
-            </linearGradient>
-          </defs>
-          <circle cx="50%" cy="50%" r="45%" fill="none" stroke="#9CE5E7" strokeWidth="1" opacity="0.3"/>
-          <circle cx="50%" cy="50%" r="30%" fill="none" stroke="#9CE5E7" strokeWidth="0.5" opacity="0.2"/>
-          <circle cx="50%" cy="50%" r="15%" fill="none" stroke="#9CE5E7" strokeWidth="0.5" opacity="0.1"/>
-          <line x1="50%" y1="50%" x2="50%" y2="5%" stroke="url(#radarGradient)" strokeWidth="2" opacity="0.6">
-            <animateTransform attributeName="transform" type="rotate" values="0 50 50;360 50 50" dur="8s" repeatCount="indefinite"/>
-          </line>
-        </svg>
-        
-                 {/* Particle System */}
-         <div className="absolute inset-0">
-           {/* REMOVED: Particle System */}
-         </div>
-         
-         {/* Data Stream Lines */}
-         <div className="absolute inset-0">
-           {/* REMOVED: Data Stream Lines */}
-         </div>
-        
         {/* Grid Lines */}
         <svg className="absolute inset-0 w-full h-full opacity-5">
           <defs>
@@ -303,15 +239,6 @@ export default function Home() {
           </defs>
           <rect width="100%" height="100%" fill="url(#grid)"/>
         </svg>
-        
-                 {/* Corner HUD Elements */}
-         {/* REMOVED: Corner HUD Elements (SVGs in all four corners) */}
-        
-        {/* Status Indicators */}
-        {/* REMOVED: Status indicators for a cleaner look */}
-        
-        {/* Bottom Status Bar */}
-        {/* REMOVED: Status bar for cleaner UI */}
       </div>
 
       {/* Hero Section */}
