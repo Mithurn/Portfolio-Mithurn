@@ -1,58 +1,95 @@
-<h1 align="center">Hey, I'm Mithurn Jeromme 👋</h1>
+<h1 align="center">
+  Mithurn Jeromme
+  <br>
+</h1>
+
+<h4 align="center">Full-Stack Developer & AI Enthusiast | Building innovative solutions that solve real-world problems</h4>
+
 <p align="center">
-  Full-Stack Developer • AIoT 
+  <a href="https://mithurnjeromme.vercel.app">
+    <img src="https://img.shields.io/badge/Portfolio-Live-brightgreen.svg?style=flat-square" alt="Portfolio">
+  </a>
+  <a href="https://www.linkedin.com/in/mithurn-jeromme-s-k/">
+    <img src="https://img.shields.io/badge/LinkedIn-Connect-blue.svg?style=flat-square&logo=linkedin" alt="LinkedIn">
+  </a>
+  <a href="https://github.com/Mithurn">
+    <img src="https://img.shields.io/badge/GitHub-Follow-black.svg?style=flat-square&logo=github" alt="GitHub">
+  </a>
+  <a href="mailto:mithurnjeromme172@gmail.com">
+    <img src="https://img.shields.io/badge/Email-Contact-red.svg?style=flat-square&logo=gmail" alt="Email">
+  </a>
+  <br>
+  <a href="https://x.com/Mithurn_Jeromme">
+    <img src="https://img.shields.io/badge/Twitter-Follow-1DA1F2.svg?style=flat-square&logo=twitter" alt="Twitter">
+  </a>
+  <a href="#">
+    <img src="https://img.shields.io/badge/Status-Available%20for%20Work-green.svg?style=flat-square" alt="Status">
+  </a>
+  <a href="#">
+    <img src="https://img.shields.io/badge/Location-Chennai%2C%20India-orange.svg?style=flat-square" alt="Location">
+  </a>
 </p>
 
----
+## 📋 **About This Portfolio**
 
-### 👨‍💻 About Me
+This portfolio is a comprehensive showcase of my work as a Full-Stack Developer & AI Enthusiast. It features my most impactful projects, technical skills, and professional journey. Here you'll find:
 
-I'm a Computer Science student passionate about **building impactful software** and exploring the fusion of **hardware + intelligence** through AIoT.
+- **🚀 Featured Projects** - My best work including healthcare AI, productivity tools, and data analytics
+- **🛠️ Technical Skills** - Complete overview of my technology stack and expertise
+- **💼 Professional Experience** - Highlights of my achievements and career focus
+- **📞 Contact Information** - Easy ways to connect and collaborate
 
-- 🔧 I build **full-stack web apps** that solve real problems
-- 🤖 I tinker with **embedded systems**, **IoT devices**, and **ESP32/MCUs**
-- 🧪 I love experimenting with **Postman**, APIs, and cloud-connected systems
+**Purpose**: This portfolio serves as a professional showcase for potential employers, clients, and collaborators. It demonstrates my ability to build production-ready applications, integrate AI/ML technologies, and solve real-world problems through innovative solutions.
 
 
----
+### **🤝 Collaboration**
+- **Open Source Projects** in healthcare and AI
+- **Hackathons** and coding competitions
+- **Mentorship** opportunities for junior developers
+- **Technical Consulting** for AI integration projects
+- **Speaking Engagements** about AI in healthcare
 
-### 🛠️ Tech Stack
+## 📞 Let's Connect
 
-#### 💻 Full Stack Development
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
-![Express](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/Tailwind-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
-![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
+I'm always excited to discuss new opportunities, collaborate on innovative projects, or simply connect with fellow developers and AI enthusiasts.
 
-#### 🔌 Embedded & AIoT
-![Arduino](https://img.shields.io/badge/Arduino-00979D?style=for-the-badge&logo=arduino&logoColor=white)
-![ESP32](https://img.shields.io/badge/ESP32-grey?style=for-the-badge)
-![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)
-![Python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue)
+### **🌐 Online Presence**
+- **Portfolio Website**: [mithurnjeromme.vercel.app](https://mithurnjeromme.vercel.app)
+- **LinkedIn**: [linkedin.com/in/mithurn-jeromme-s-k](https://www.linkedin.com/in/mithurn-jeromme-s-k/)
+- **GitHub**: [github.com/Mithurn](https://github.com/Mithurn)
+- **Twitter**: [@Mithurn_Jeromme](https://x.com/Mithurn_Jeromme)
 
----
+### **📧 Get In Touch**
+- **Email**: [mithurnjeromme172@gmail.com](mailto:mithurnjeromme172@gmail.com)
+- **Location**: Chennai, Tamil Nadu, India
+- **Availability**: Open to new opportunities and collaborations
 
-### 🚀 Projects & Highlights
-
-- 🌐 **Urban Risk Radar** – Real-time disaster forecasting with maps and API data
-- 🧠 **PromptPlay** – AI game generator using natural language prompts
-- 📡 **Gyroscopic Car Bot** – AIoT project using ESP32, MPU6050, OLED & PID
-
-> ✨ More coming soon — I'm just getting started...
-
----
-
-### 📫 Let's Connect
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin)]([https://linkedin.com/in/mithurnjeromme](https://www.linkedin.com/in/mithurn-jeromme-s-k/))
-[![Twitter](https://img.shields.io/badge/X-000000?style=flat&logo=x&logoColor=white)]([https://twitter.com/yourhandle](https://x.com/Mithurn_Jeromme))
-[![Mail](https://img.shields.io/badge/Email-D14836?style=flat&logo=gmail&logoColor=white)](mailto:mithurnjeromme172@gmail.com)
+### **💬 Quick Message**
+```
+Hi Mithurn! I'd love to discuss [opportunity/project/collaboration]. 
+Let's connect and explore how we can work together!
+```
 
 ---
 
+## ⚖️ **All Rights Reserved**
 
+**This is not a website template!**
 
+You are **not allowed** to redistribute or modify the code.
 
+This can be used for **learning/reference** and for **GitHub pages**.
 
+This project has **no license** so in short, the only thing you can safely assume is that you have **no rights to do anything at all** with this code. In the particular case of GitHub, you can fork the repository and view the code, but **nothing more**.
+
+Read [this](https://opensource.org/licenses/no-license) to learn about things if the project does not have a license.
+
+---
+
+<div align="center">
+
+**🚀 Building the future, one line of code at a time**
+
+*"Technology is best when it brings people together and solves real problems"*
+
+</div>
